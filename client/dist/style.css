@@ -1,0 +1,18 @@
+.navbar {
+	background-color: rgb(99, 99, 116);
+	height: 100px;
+	display: flex;
+	align-items: center;
+}
+
+.navbar-item{
+	color: white;
+	margin: 10px;
+	padding: 10px;
+}  
+
+.navbar-logo {
+	color: white;
+	margin: 0 auto 0 5px;
+	padding: 10px;
+}
