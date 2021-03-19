@@ -12,6 +12,9 @@ export default function Shop() {
 				setBanners(result.data.data)
 				console.log('result.data.data:', result.data.data)
 			})
+		return () => {
+			setBanners([])
+		}
 	}, [])
 
 	return (
@@ -20,7 +23,12 @@ export default function Shop() {
 			<ul className="banner-list">
 				{banners.map(banner => (
 					<li className="banner-list-item" key={banner.id}>
-						<Link className="link" to={`/shop/${banner.id}/${banner.devName}`}>
+						<Link className="link" to={
+							{
+								pathname: `/shop/${banner.id}/${banner.devName}`,
+								currentBanner: banner
+							}
+						}>
 							{banner.devName}
 						</Link>
 					</li>
