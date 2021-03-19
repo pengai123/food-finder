@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Home() {
 	return (
-		<div>
-			<h1 style={{backgroundColor: 'lightblue'}}>Home Page here!</h1>
+		<div className="page-container">
+			<h1>Home Page here!</h1>
 		</div>
 	)
 }

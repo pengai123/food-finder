@@ -1,6 +1,11 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
 .navbar {
 	background-color: rgb(99, 99, 116);
-	height: 100px;
+	height: 15vh;
 	display: flex;
 	align-items: center;
 }
@@ -15,4 +20,21 @@
 	color: white;
 	margin: 0 auto 0 5px;
 	padding: 10px;
+}
+
+.banner-list{
+	list-style-type: none;
+}
+
+h2, h1, .banner-list-item {
+	text-align:center;
+}
+
+.link {
+	text-decoration: none;
+}
+
+.page-container {
+	min-height: 85vh;
+	background-color: lightseagreen;
 }
