@@ -7,7 +7,7 @@ export default function Nav() {
 			<Link to="/" className="navbar-logo link">
 				LOGO
 			</Link>
-			<Link to="about" className="navbar-item link">
+			<Link to="/about" className="navbar-item link">
 				About
 			</Link>
 			<Link to="/shop" className="navbar-item link">
