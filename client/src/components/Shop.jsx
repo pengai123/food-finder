@@ -23,14 +23,7 @@ export default function Shop() {
 			<ul className="banner-list">
 				{banners.map(banner => (
 					<li className="banner-list-item" key={banner.id}>
-						<Link className="link" to={
-							{
-								pathname: `/shop/${banner.id}/${banner.devName}`,
-								currentBanner: banner
-							}
-						}>
-							{banner.devName}
-						</Link>
+						<a href={`/shop/${banner.id}/${banner.devName}`} className="link" style={{color: 'white'}}>{banner.devName}</a>
 					</li>
 				))}
 			</ul>
