@@ -20,7 +20,7 @@ export default function Home() {
 
 	return (
 		<div className="home-page page-container">
-			<video className="bg-video" src="/food.mp4" autoPlay muted loop></video>
+			<video className="bg-video" src="/food.mp4" autoPlay muted loop playsInline></video>
 			<div className="bg-overlay"></div>
 			<div className="page-content">
 				<h1>DISCOVER THE BEST FOOD</h1>
