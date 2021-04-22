@@ -67,8 +67,7 @@ export default function Nav() {
 				<li><a href="/login" className="navbar-link link">Login</a></li>
 				<li><a href="/signup" className="navbar-link link">Sign Up</a></li>
 				<li><a href="/about" className="navbar-link link">About</a></li>
-				<li><a href="/shop" className="navbar-link link">Shop</a></li>
-				<li><a href="/Restaurants/phoenix/buffet" className="navbar-link link">Restaurants</a></li>
+				<li><a href="/restaurants" className="navbar-link link">Restaurants</a></li>
 			</ul>
 		</div >
 	)

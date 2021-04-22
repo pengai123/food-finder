@@ -18,7 +18,7 @@ export default function Shop() {
 	}, [])
 
 	return (
-		<div className="page-container">
+		<div className="page-container shop-page">
 			<h2>Banner List</h2>
 			<ul className="banner-list">
 				{banners.map(banner => (

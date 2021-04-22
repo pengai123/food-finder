@@ -23,7 +23,7 @@ export default function App() {
 					<Route path="/about" component={About} />
 					<Route path="/shop" exact component={Shop} />
 					<Route path="/shop/:id/:name" component={ItemDetail} />
-					<Route path="/Restaurants/:location/:keyword" component={Restaurants} />
+					<Route path={["/Restaurants/:location/:keyword", "/Restaurants/:location", "/Restaurants"]} component={Restaurants} />
 					<Route path="*" component={PageNotFound} />
 				</Switch>
 				<Footer />

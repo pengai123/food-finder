@@ -5,6 +5,7 @@ export default function Footer() {
 		<div className="footer-container">
 			<div className="footer-content">
 				<div className="section aboutus">
+					{/* <h1 className="logo">LOG<span>O</span></h1> */}
 					<h2>About Us</h2>
 					<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Et dolore architecto eos asperiores ipsa a iure natus laborum aperiam labore.</p>
 				</div>
