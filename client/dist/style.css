@@ -207,7 +207,7 @@
 
 .location-input-wrapper{
 	position: relative;
-	width: 250px;
+	width: 220px;
 	height: 45px;
 }
 
@@ -272,8 +272,6 @@
 	z-index: -1;
 	transition: 0.5s;
 }
-
-
 
 .search-area a:hover{
 	/* border: 1px solid rgba(62,161,219,1); */
@@ -487,19 +485,79 @@
 	justify-content: center;
 	align-items: center;
 }
+
 .restaurants-page{
 	padding: 100px 60px;
 }
 
+.loader {
+	position: fixed;
+	z-index: 110;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(0, 0, 0, 0.6);
+}
+
+.circle1{
+	position: relative;
+	height: 120px;
+	width: 120px;
+	border-radius: 50%;
+	/* border-top: 3px solid blue; */
+	border: 3px solid transparent;
+	border-top-color: #4361ee;
+	animation: spin 2s linear infinite;
+}
+
+.circle2{
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	right: 5px;
+	bottom: 5px;
+	border-radius: 50%;
+	/* border-top: 3px solid orangered; */
+	border: 3px solid transparent;
+	border-top-color: orangered;
+	animation: spin 3s linear infinite;
+}
+
+.circle3{
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	right: 15px;
+	bottom: 15px;
+	border-radius: 50%;
+	/* border-top: 3px solid yellow; */
+	border: 3px solid transparent;
+	border-top-color: yellow;
+	animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin{
+	from {
+		transform:rotate(0deg);
+	}
+	to {
+		transform:rotate(360deg);
+	}
+}
+
 .restaurants-container{
-	margin-top: 30px;
 	width:100%;
 	/* border: 1px solid rgba(255, 255, 255, 0.1); */
 	display: flex;
 	flex-wrap: wrap;
-	/* justify-content: center; */
-	justify-content: space-around;
+	justify-content: center;
+	margin-top: 40px;
 }
+
 
 .restaurant-card {
 	min-height: 300px;
@@ -549,6 +607,22 @@
 	margin-right: 5px;
 }
 
+.user_rating{
+	display: flex;
+	align-items: center;
+	margin-top: 5px;
+}
+
+.user_rating .rating_text{
+	display: inline-block;
+	font-size: 13px;
+	font-weight: 700;
+	margin-left: 5px;
+}
+
+.cuisine{
+	color: #6c757d;
+}
 
 .notfound {
 	display: flex;
@@ -568,6 +642,10 @@
 		width: 80%;
 	}
 
+	.location-input-wrapper {
+    width: 180px;
+}
+
 	.restaurants-page{
 		padding: 100px 30px;
 	}
@@ -581,7 +659,7 @@
 	}
 
 	.location-input-wrapper{
-		width: 180px;
+		width: 150px;
 	}
 
 	.search-area a{
@@ -639,8 +717,8 @@
 	.restaurant-card {
 		margin: 10px;
 		width: 35%;
-	 min-height: 270px;
-		min-width: 190px;
+	 	min-height: 270px;
+		min-width: 200px;
 		max-width: 220px; 
 	}
 }
@@ -687,9 +765,29 @@
 	.restaurant-card {
 		margin: 8px;
 		width: 45%;
-		min-height: 260px;
+		min-height: 280px;
 		min-width: 160px;
 		max-width: 200px;
+	}
+
+	.restaurant-card .details h2 {
+		font-size: 14px;
+		font-weight: 500;
+	}
+
+	.user_rating {
+		flex-direction: column;
+		align-items: start;
+	}
+
+	.user_rating .rating_text{
+		margin-left: 0;
+		margin-top: 3px;
+	}
+
+	.restaurant-card .details p {
+    font-size: 13px;
+    margin: 3px 0;
 	}
 	
 }

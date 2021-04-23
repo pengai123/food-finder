@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useState, useEffect } from 'react'
 import RestaurantCard from "./RestaurantCard.jsx"
+import Loader from "./Loader.jsx"
 
-export default function Restaurants() {
+export default function Restaurants({ match }) {
 	const [location, setLocation] = useState("");
 	const [keyword, setKeyword] = useState("");
+	const [restaurants, setRestaurants] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
 
 	const getHref = () => {
 		if (location === "") {
@@ -17,7 +21,26 @@ export default function Restaurants() {
 		}
 	}
 
+	const search = (loc = "phoenix", kw = "", start = 0) => {
+		setIsLoading(true);
+		axios.get(`/restaurants-server/${loc}?kw=${kw}&start=${start}`)
+			.then(result => {
+				console.log('result.data', result.data)
+				setRestaurants(result.data.restaurants);
+				setLocation(result.data.location.city_name)
+				if(kw) {
+					setKeyword(kw);
+				}
+				setIsLoading(false);
+			})
+	}
+
+	useEffect(() => {
+		search(match.params.location, match.params.keyword);
+	}, [])
+
 	return (
+		<div>
 		<div className="page-container restaurants-page">
 			<div className="search-area">
 				<div className="location-input-wrapper">
@@ -34,27 +57,11 @@ export default function Restaurants() {
 				<a href={getHref()}>Search</a>
 			</div>
 			<div className="restaurants-container">
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
-				<RestaurantCard />
+				{/* <h1>Search results for "{match.params.keyword}" restaurants in "{match.params.location}":</h1> */}
+				{restaurants.map((restaurant, idx) => <RestaurantCard restaurant={restaurant} key={idx} />)}
 			</div>
+		</div>
+		{isLoading && <Loader />}
 		</div>
 	)
 }
