@@ -22,6 +22,7 @@ export default function Restaurants({ match }) {
 	}
 
 	const search = (loc = "phoenix", kw = "", start = 0) => {
+
 		setIsLoading(true);
 		axios.get(`/restaurants-server/${loc}?kw=${kw}&start=${start}`)
 			.then(result => {

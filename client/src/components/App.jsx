@@ -6,7 +6,6 @@ import Home from "./Home.jsx";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
 import Footer from "./Footer.jsx";
-import ItemDetail from "./ItemDetail.jsx";
 import Restaurants from "./Restaurants.jsx";
 import PageNotFound from "./PageNotFound.jsx";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -22,7 +21,6 @@ export default function App() {
 					<Route path="/signup" component={Signup} />
 					<Route path="/about" component={About} />
 					<Route path="/shop" exact component={Shop} />
-					<Route path="/shop/:id/:name" component={ItemDetail} />
 					<Route path={["/Restaurants/:location/:keyword", "/Restaurants/:location", "/Restaurants"]} component={Restaurants} />
 					<Route path="*" component={PageNotFound} />
 				</Switch>

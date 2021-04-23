@@ -3,7 +3,7 @@ const app = express()
 const bp = require("body-parser")
 const PORT = process.env.PORT || 3000
 const axios = require("axios")
-// const config = require("./config.js")
+const config = require("./config.js")
 
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))

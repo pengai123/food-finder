@@ -1,7 +1,7 @@
 import React from 'react'
 import Rating from '@material-ui/lab/Rating';
 
-export default function RestaurantCard( {restaurant} ) {
+export default function RestaurantCard({ restaurant }) {
 
 	const priceRange = function (range, currency) {
 		let result = "";
@@ -20,8 +20,8 @@ export default function RestaurantCard( {restaurant} ) {
 				<h2>{restaurant.restaurant.name}</h2>
 				<div className="user_rating">
 					<Rating name="read-only" value={Number(restaurant.restaurant.user_rating.aggregate_rating)}
-								precision={0.1} size="small" readOnly />
-					<span className="rating_text" style={{color: "#" + restaurant.restaurant.user_rating.rating_color}}>{restaurant.restaurant.user_rating.rating_text}</span>
+						precision={0.1} size="small" readOnly />
+					<span className="rating_text" style={{ color: "#" + restaurant.restaurant.user_rating.rating_color }}>{restaurant.restaurant.user_rating.rating_text}</span>
 				</div>
 				<p className="price-cuisine">
 					<span className="price-range">{priceRange(restaurant.restaurant.price_range, restaurant.restaurant.currency)}</span>
