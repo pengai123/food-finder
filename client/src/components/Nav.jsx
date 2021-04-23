@@ -34,16 +34,16 @@ export default function Nav() {
 
 	useEffect(() => {
 		const navbarLinks = document.querySelectorAll(".navbar ul li");
-		navbarLinks.forEach( link => {
-			link.addEventListener("click", e => {
-				// e.preventDefault();
-				navbarLinks.forEach(link => {
-					link.classList.remove("active");
-				})
-				link.classList.add("active");
-				console.log("remove active then add active")
-			})
-		})
+		// navbarLinks.forEach( link => {
+		// 	link.addEventListener("click", e => {
+		// 		// e.preventDefault();
+		// 		navbarLinks.forEach(link => {
+		// 			link.classList.remove("active");
+		// 		})
+		// 		link.classList.add("active");
+		// 		console.log("remove active then add active")
+		// 	})
+		// })
 
 		document.addEventListener('mousedown', handleClickOutside);
 		window.addEventListener("scroll", handleWindowScroll);

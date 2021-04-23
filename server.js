@@ -4,6 +4,7 @@ const bp = require("body-parser")
 const PORT = process.env.PORT || 3000
 const axios = require("axios")
 // const config = require("./config.js")
+const dbHandlers = require("./database/handlers")
 
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
@@ -11,7 +12,7 @@ app.use(express.static("./client/dist"))
 
 const zomatoConfig = {
 	headers: {
-		"user-key": process.env.user_key || config.user_key
+		"user-key": process.env.user_key || config.zomato_user_key
 	}
 };
 
@@ -24,6 +25,25 @@ app.get("/hello/:id", (req, res) => {
 	res.send(req.params.id)
 })
 
+
+//create new account
+app.post("/accounts-server", (req, res) => {
+	dbHandlers.newAccount(req.body, (err, result) => {
+		if (err) { res.send(err) }
+		else { res.send(result) }
+	})
+})
+
+//find an account
+app.get("/accounts-server/:username", (req, res) => {
+	dbHandlers.findAccount({ username: req.params.username }, (err, result) => {
+		if (err) { res.send(err) }
+		else { res.send(result) }
+	})
+})
+
+
+//get restaurants data from API
 app.get("/restaurants-server/:loc", (req, res) => {
 
 	let loc = req.params.loc;
@@ -47,8 +67,8 @@ app.get("/restaurants-server/:loc", (req, res) => {
 })
 
 // Handles react router and any requests that don't match the ones above
-app.get('*', (req,res) =>{
-	res.sendFile(__dirname +'/client/dist/index.html');
+app.get('*', (req, res) => {
+	res.sendFile(__dirname + '/client/dist/index.html');
 });
 
 app.listen(PORT, () => console.log(`server is listening on port ${PORT}...`))
