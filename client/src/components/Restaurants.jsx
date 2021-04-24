@@ -40,7 +40,13 @@ export default function Restaurants({ match }) {
 	}
 
 	useEffect(() => {
+		const restaurantsLink = document.querySelector(".restaurants-li")
+		restaurantsLink.classList.add("active");
+
 		search(match.params.location, match.params.keyword);
+		return () => {
+			restaurantsLink.classList.remove("active");
+		}
 	}, [])
 
 	return (

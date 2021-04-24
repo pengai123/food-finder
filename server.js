@@ -55,10 +55,10 @@ app.get("/restaurants-server/:loc", (req, res) => {
 	axios.get(`https://developers.zomato.com/api/v2.1/locations?query=${loc}`, zomatoConfig)
 		.then(result => {
 			let location = result.data.location_suggestions[0];
-			console.log('location:', location)
+			// console.log('location:', location)
 			axios.get(`https://developers.zomato.com/api/v2.1/search?entity_id=${location.entity_id}&entity_type=${location.entity_type}&start=${start}&q=${keyword}`, zomatoConfig)
 				.then(result => {
-					console.log('result.data:', result.data)
+					// console.log('result.data:', result.data)
 					let restaurants = result.data.restaurants;
 					let total = result.data.results_found;
 					res.send({ location, total, restaurants });

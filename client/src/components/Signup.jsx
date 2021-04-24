@@ -36,6 +36,8 @@ export default function Signup() {
 
 	useEffect(() => {
 		const formInputs = document.querySelectorAll(".form-input");
+		const signupLink = document.querySelector(".signup-li")
+		signupLink.classList.add("active");
 
 		formInputs.forEach(input => {
 			input.addEventListener("focus", () => {
@@ -59,6 +61,8 @@ export default function Signup() {
 					}
 				})
 			})
+
+			signupLink.classList.remove("active");
 		}
 	}, [])
 

@@ -64,10 +64,10 @@ export default function Nav() {
 				<div className="line-3 menu-icon-line"></div>
 			</div>
 			<ul className="navbar-links" ref={navLinksRef}>
-				<li><a href="/login" className="navbar-link link">Login</a></li>
-				<li><a href="/signup" className="navbar-link link">Sign Up</a></li>
-				<li><a href="/about" className="navbar-link link">About</a></li>
-				<li><a href="/restaurants" className="navbar-link link">Restaurants</a></li>
+				<li className="login-li"><a href="/login" className="navbar-link">Login</a></li>
+				<li className="signup-li"><a href="/signup" className="navbar-link">Sign Up</a></li>
+				<li className="about-li"><a href="/about" className="navbar-link">About</a></li>
+				<li className="restaurants-li"><a href="/restaurants" className="navbar-link">Restaurants</a></li>
 			</ul>
 		</div >
 	)

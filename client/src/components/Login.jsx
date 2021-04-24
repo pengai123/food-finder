@@ -32,6 +32,8 @@ export default function Login() {
 
 	useEffect(() => {
 		const formInputs = document.querySelectorAll(".form-input");
+		const loginLink = document.querySelector(".login-li")
+		loginLink.classList.add("active");
 
 		formInputs.forEach(input => {
 			input.addEventListener("focus", () => {
@@ -56,6 +58,8 @@ export default function Login() {
 					}
 				})
 			})
+
+			loginLink.classList.remove("active");
 		}
 	}, [])
 
