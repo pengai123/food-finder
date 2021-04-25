@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from "axios"
+import { AuthContext } from "./App.jsx"
+import Cookies from "js-cookie"
 
-export default function Login() {
-
+export default function Login({history}) {
+	const { currentUser, setCurrentUser } = useContext(AuthContext)
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 	const [formMsg, setFormMsg] = useState("")
@@ -18,13 +20,15 @@ export default function Login() {
 						setFormMsg("Username does not exist")
 					} else {
 						if (result.data.password === password) {
-							setFormMsg("Log in successfully")
+							setCurrentUser(username)
+							Cookies.set('current-user', username, { expires: 1 });
+							alert("Log in successfully")
+							history.push("/")
 						} else {
 							setFormMsg("Invalid password")
 						}
 					}
 				})
-
 		} else {
 			setFormMsg("please complete the form before submitting")
 		}

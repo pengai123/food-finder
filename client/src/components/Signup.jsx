@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios"
 
-export default function Signup() {
+export default function Signup({ history }) {
 
 	const [username, setUsername] = useState("")
 	const [email, setEmail] = useState("")
@@ -17,15 +17,16 @@ export default function Signup() {
 			if (password === passwordConfirm) {
 				let userObj = { username, email, password };
 				axios.post("/accounts-server", userObj)
-				.then (result => {
-					console.log(result.data)
-					if(!result.data.code){
-						setFormMsg("Sign up successfully")
-					} else {
-						setFormMsg("Username is already taken")
-					}
-				})
-				.catch (err => console.log(err))
+					.then(result => {
+						console.log(result.data)
+						if (!result.data.code) {
+							alert("sign up successfully")
+							history.push("/")
+						} else {
+							setFormMsg("Username is already taken")
+						}
+					})
+					.catch(err => console.log(err))
 			} else {
 				setFormMsg("Passwords dont match")
 			}
@@ -42,6 +43,7 @@ export default function Signup() {
 		formInputs.forEach(input => {
 			input.addEventListener("focus", () => {
 				input.classList.add("focus");
+				setFormMsg("")
 			})
 			input.addEventListener("blur", () => {
 				if (input.value === "") {
