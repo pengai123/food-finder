@@ -9,7 +9,7 @@ const dbHandlers = require("./database/handlers")
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
 }
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 
 app.use(cookieParser())
 app.use(bp.json())
@@ -25,7 +25,6 @@ const zomatoConfig = {
 };
 
 const accessTokenSecret = process.env.access_token_secret;
-
 
 app.get("/hello", (req, res) => {
 	res.send(`<h1>HELLO FROM SERVER</h1>`)
