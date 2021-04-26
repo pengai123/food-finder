@@ -24,7 +24,7 @@ export default function App() {
 				console.log('user info:', data)
 				setCurrentUser(data.username)
 			})
-			.catch(err => console.log('err:', err))
+			.catch(err => console.log('Error getting current user:', err))
 	}, [])
 
 	return (

@@ -30,7 +30,7 @@ export default function Home() {
 				<h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, quaerat eligendi? Illo.</h2>
 				<div className="search-area">
 					<div className="location-input-wrapper">
-						<input type="text" placeholder="Location" className="location-input"
+						<input type="text" placeholder="City" className="location-input"
 							value={location} onChange={e => setLocation(e.target.value)} />
 						<i className="fas fa-map-marker-alt location-input-icon"></i>
 					</div>

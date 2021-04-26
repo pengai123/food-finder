@@ -49,11 +49,12 @@ export default function Nav() {
 
 	const handleLogout = () => {
 		axios.get("/api/logout")
-			.then(result => {
-				if (result.data.status === "success") {
+			.then(({ data }) => {
+				if (data.status === "success") {
 					setCurrentUser(undefined);
 				}
 			})
+			.catch(err => console.log(err))
 	}
 
 	const toggleAccountMenu = () => {

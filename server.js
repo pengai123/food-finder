@@ -3,33 +3,33 @@ const app = express()
 const bp = require("body-parser")
 const cookieParser = require("cookie-parser")
 const jwt = require("jsonwebtoken")
-const PORT = process.env.PORT || 3000
 const axios = require("axios")
 // const config = require("./config.js")
 const dbHandlers = require("./database/handlers")
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config();
+}
+const PORT = process.env.PORT
 
 app.use(cookieParser())
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 app.use(express.static("./client/dist"))
 
+console.log('process.env.NODE_ENV:', process.env.NODE_ENV)
+
 const zomatoConfig = {
 	headers: {
-		"user-key": process.env.user_key || config.zomato_user_key
+		"user-key": process.env.zomato_user_key
 	}
 };
 
-const accessTokenSecret = process.env.access_token_secret || config.access_token_secret;
+const accessTokenSecret = process.env.access_token_secret;
+
 
 app.get("/hello", (req, res) => {
-	res.send("hello from server!")
+	res.send(`<h1>HELLO FROM SERVER</h1>`)
 })
-
-
-app.get("/hello/:id", (req, res) => {
-	res.send(req.params.id)
-})
-
 
 //create new account
 app.post("/api/accounts", (req, res) => {
@@ -55,7 +55,10 @@ app.post("/api/login", (req, res) => {
 			res.send({ status: "failure", message: "Username does not exist" })
 		} else {
 			if (result.password === req.body.password) {
-				res.cookie("accessToken", jwt.sign({ username: result.username, email: result.email }, accessTokenSecret), { httpOnly: true })
+				//generate an access token
+				let accessToken = jwt.sign({ username: result.username, email: result.email }, accessTokenSecret);
+				//create a token cookie that expires atfer 3 days
+				res.cookie("accessToken", accessToken, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 })
 				res.send({ status: "success", data: { username: result.username, email: result.email } })
 			} else {
 				res.send({ status: "failure", message: "Invalid Password" })
@@ -66,16 +69,15 @@ app.post("/api/login", (req, res) => {
 
 //get current user info
 app.get("/api/current-user", (req, res) => {
+	console.log('All cookies:', req.cookies)
 	console.log('accessToken:', req.cookies.accessToken)
 	//access token does not exist
 	if (req.cookies.accessToken === undefined) { return res.send({}) }
+
 	//verify access token
 	jwt.verify(req.cookies.accessToken, accessTokenSecret, function (err, decoded) {
-		if (err) {
-			res.send(err)
-		} else {
-			res.send({ username: decoded.username, email: decoded.email })
-		}
+		if (err) { return res.sendStatus(403) }
+		res.send({ username: decoded.username, email: decoded.email })
 	})
 })
 
@@ -86,7 +88,7 @@ app.get("/api/logout", (req, res) => {
 })
 
 
-//get restaurants data from API
+//get restaurants data from public API
 app.get("/api/restaurants/:loc", (req, res) => {
 
 	let loc = req.params.loc;

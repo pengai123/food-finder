@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 // const config = require("../config.js");
-const mongodbAtlasUrl = process.env.mongodbAtlasUrl || config.mongodbAtlasUrl;
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config();
+}
+const mongodbAtlasUrl = process.env.mongodbAtlasUrl;
 
 mongoose.connect(mongodbAtlasUrl, {
   useNewUrlParser: true,
