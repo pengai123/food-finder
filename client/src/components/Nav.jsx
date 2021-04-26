@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 import React, { useRef, useEffect, useContext } from 'react'
 import { Link } from "react-router-dom"
 import { AuthContext } from "./App.jsx"
+import axios from "axios"
 
 export default function Nav() {
 
@@ -15,7 +16,7 @@ export default function Nav() {
 	}
 
 	const handleClickOutsideNavbarLinks = e => {
-		if (navLinksRef &&
+		if (navLinksRef.current &&
 			!navLinksRef.current.contains(e.target) &&
 			!menuIconRef.current.contains(e.target) &&
 			document.getElementById("menu-icon").classList.contains("active")) {
@@ -25,9 +26,10 @@ export default function Nav() {
 
 	const handleClickOutsideAccMenu = e => {
 		const userImg = document.querySelector(".user-img");
-		if (accMenuRef &&
+		if (accMenuRef.current &&
 			!accMenuRef.current.contains(e.target) &&
-			!userImg.contains(e.target)&&
+			userImg &&
+			!userImg.contains(e.target) &&
 			accMenuRef.current.classList.contains("active")) {
 			accMenuRef.current.classList.remove("active")
 		}
@@ -46,12 +48,15 @@ export default function Nav() {
 	}
 
 	const handleLogout = () => {
-		setCurrentUser(undefined);
-		Cookies.remove("current-user");
+		axios.get("/api/logout")
+			.then(result => {
+				if (result.data.status === "success") {
+					setCurrentUser(undefined);
+				}
+			})
 	}
 
 	const toggleAccountMenu = () => {
-		console.log("clicked")
 		const accountMenu = document.querySelector(".account-menu");
 		accountMenu.classList.toggle("active")
 	}
@@ -74,7 +79,7 @@ export default function Nav() {
 
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutsideNavbarLinks);
-			document.addEventListener('mousedown', handleClickOutsideAccMenu);
+			document.removeEventListener('mousedown', handleClickOutsideAccMenu);
 			window.removeEventListener("scroll", handleWindowScroll);
 		}
 

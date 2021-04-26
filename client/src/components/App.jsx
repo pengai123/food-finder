@@ -9,7 +9,8 @@ import Footer from "./Footer.jsx";
 import Restaurants from "./Restaurants.jsx";
 import PageNotFound from "./PageNotFound.jsx";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
+import axios from "axios";
 
 export const AuthContext = React.createContext();
 
@@ -18,9 +19,12 @@ export default function App() {
 	const [currentUser, setCurrentUser] = useState(undefined)
 
 	useEffect(() => {
-		// check current user from cookies
-		console.log('currentUser from cookie:', Cookies.get("current-user"))
-		setCurrentUser(Cookies.get("current-user"))
+		axios.get("/api/current-user")
+			.then(({ data }) => {
+				console.log('user info:', data)
+				setCurrentUser(data.username)
+			})
+			.catch(err => console.log('err:', err))
 	}, [])
 
 	return (

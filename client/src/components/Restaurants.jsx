@@ -12,8 +12,11 @@ export default function Restaurants({ match }) {
 	const [startNumber, setStartNumber] = useState(0)
 
 	const getHref = () => {
-		if (location === "") {
-			return "/restaurants"
+		if (location === "" && keyword === "") {
+			return "/restaurants/phoenix"
+		}
+		if (location === "" && keyword !== "") {
+			return `/restaurants/phoenix/${keyword}`
 		}
 		if (location !== "" && keyword === "") {
 			return `/restaurants/${location}`;
@@ -23,10 +26,10 @@ export default function Restaurants({ match }) {
 		}
 	}
 
-	const search = (loc = "phoenix", kw = "", start = 0) => {
+	const search = (loc, kw = "", start = 0) => {
 
 		setIsLoading(true);
-		axios.get(`/restaurants-server/${loc}?kw=${kw}&start=${start}`)
+		axios.get(`/api/restaurants/${loc}?kw=${kw}&start=${start}`)
 			.then(result => {
 				console.log('result.data', result.data)
 				setRestaurants(result.data.restaurants);

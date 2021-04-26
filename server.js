@@ -1,11 +1,14 @@
 const express = require("express")
 const app = express()
 const bp = require("body-parser")
+const cookieParser = require("cookie-parser")
+const jwt = require("jsonwebtoken")
 const PORT = process.env.PORT || 3000
 const axios = require("axios")
 // const config = require("./config.js")
 const dbHandlers = require("./database/handlers")
 
+app.use(cookieParser())
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 app.use(express.static("./client/dist"))
@@ -15,6 +18,8 @@ const zomatoConfig = {
 		"user-key": process.env.user_key || config.zomato_user_key
 	}
 };
+
+const accessTokenSecret = process.env.access_token_secret || config.access_token_secret;
 
 app.get("/hello", (req, res) => {
 	res.send("hello from server!")
@@ -27,7 +32,7 @@ app.get("/hello/:id", (req, res) => {
 
 
 //create new account
-app.post("/accounts-server", (req, res) => {
+app.post("/api/accounts", (req, res) => {
 	dbHandlers.newAccount(req.body, (err, result) => {
 		if (err) { res.send(err) }
 		else { res.send(result) }
@@ -35,16 +40,54 @@ app.post("/accounts-server", (req, res) => {
 })
 
 //find an account
-app.get("/accounts-server/:username", (req, res) => {
+app.get("/api/accounts/:username", (req, res) => {
 	dbHandlers.findAccount({ username: req.params.username }, (err, result) => {
 		if (err) { res.send(err) }
 		else { res.send(result) }
 	})
 })
 
+//handle log in
+app.post("/api/login", (req, res) => {
+	dbHandlers.findAccount({ username: req.body.username }, (err, result) => {
+		if (err) { return res.send(err) }
+		if (result === null) {
+			res.send({ status: "failure", message: "Username does not exist" })
+		} else {
+			if (result.password === req.body.password) {
+				res.cookie("accessToken", jwt.sign({ username: result.username, email: result.email }, accessTokenSecret), { httpOnly: true })
+				res.send({ status: "success", data: { username: result.username, email: result.email } })
+			} else {
+				res.send({ status: "failure", message: "Invalid Password" })
+			}
+		}
+	})
+})
+
+//get current user info
+app.get("/api/current-user", (req, res) => {
+	console.log('accessToken:', req.cookies.accessToken)
+	//access token does not exist
+	if (req.cookies.accessToken === undefined) { return res.send({}) }
+	//verify access token
+	jwt.verify(req.cookies.accessToken, accessTokenSecret, function (err, decoded) {
+		if (err) {
+			res.send(err)
+		} else {
+			res.send({ username: decoded.username, email: decoded.email })
+		}
+	})
+})
+
+//handle log out
+app.get("/api/logout", (req, res) => {
+	res.clearCookie("accessToken")
+	res.send({ status: "success" })
+})
+
 
 //get restaurants data from API
-app.get("/restaurants-server/:loc", (req, res) => {
+app.get("/api/restaurants/:loc", (req, res) => {
 
 	let loc = req.params.loc;
 	let start = req.query.start;

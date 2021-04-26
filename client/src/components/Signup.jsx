@@ -16,10 +16,10 @@ export default function Signup({ history }) {
 		if (username && email && password && passwordConfirm) {
 			if (password === passwordConfirm) {
 				let userObj = { username, email, password };
-				axios.post("/accounts-server", userObj)
-					.then(result => {
-						console.log(result.data)
-						if (!result.data.code) {
+				axios.post("/api/accounts", userObj)
+					.then(({ data }) => {
+						console.log("sign up res", data)
+						if (!data.code) {
 							alert("sign up successfully")
 							history.push("/")
 						} else {

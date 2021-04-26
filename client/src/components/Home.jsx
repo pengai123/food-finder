@@ -7,8 +7,11 @@ export default function Home() {
 
 
 	const getHref = () => {
-		if (location === "") {
-			return "/restaurants"
+		if (location === "" && keyword === "") {
+			return "/restaurants/phoenix"
+		}
+		if (location === "" && keyword !== "") {
+			return `/restaurants/phoenix/${keyword}`
 		}
 		if (location !== "" && keyword === "") {
 			return `/restaurants/${location}`;

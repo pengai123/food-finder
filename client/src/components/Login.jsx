@@ -3,7 +3,7 @@ import axios from "axios"
 import { AuthContext } from "./App.jsx"
 import Cookies from "js-cookie"
 
-export default function Login({history}) {
+export default function Login({ history }) {
 	const { currentUser, setCurrentUser } = useContext(AuthContext)
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
@@ -14,19 +14,14 @@ export default function Login({history}) {
 		e.preventDefault();
 
 		if (username && password) {
-			axios.get(`/accounts-server/${username}`)
-				.then(result => {
-					if (result.data === "") {
-						setFormMsg("Username does not exist")
+			axios.post("/api/login", { username, password })
+				.then(({ data }) => {
+					if (data.status === "failure") {
+						setFormMsg(data.message)
 					} else {
-						if (result.data.password === password) {
-							setCurrentUser(username)
-							Cookies.set('current-user', username, { expires: 1 });
-							alert("Log in successfully")
-							history.push("/")
-						} else {
-							setFormMsg("Invalid password")
-						}
+						alert("Log in successfully")
+						setCurrentUser(data.data.username)
+						history.push("/")
 					}
 				})
 		} else {
