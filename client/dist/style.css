@@ -69,19 +69,37 @@
 .account-menu{
 	position: absolute;
 	overflow: hidden;
-	top: calc(100% + 5px);
-	left: -20px;
-	width: 100px;
+	top: calc(100% + 6px);
+	left: 15px;
+  min-width: 100px;
+  max-width: 142px;
 	border-radius: 5px;
 	height: 0;
+	transform: translateX(-50%);
 	padding: 0;
-	background: rgba(255, 255, 255, 0.9);
+	background: #f8f9fa;
 	transition: 0.5s;
 }
 
 .account-menu.active{
 	height: auto;
-	padding: 5px 0;
+	padding: 5px;
+}
+
+.account-menu-triangle {
+	position: absolute;
+  left: 15px;
+  top: calc(100% + 8px);
+  width: 12px;
+  height: 12px;
+  background: #f8f9fa;
+  transform: rotate(45deg) translateX(-50%);
+  z-index: -1;
+	display: none;
+}
+
+.account-menu.active ~ .account-menu-triangle{
+	display: block;
 }
 
 .account-menu h2{
@@ -809,6 +827,12 @@
 		width: 40px;
 		height: 40px;
 	}
+
+	.account-menu,
+	.account-menu-triangle{
+		left: 20px;
+	}
+	
 	.restaurants-page{
 		padding: 100px 20px;
 	}

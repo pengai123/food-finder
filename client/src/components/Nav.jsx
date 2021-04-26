@@ -97,7 +97,7 @@ export default function Nav() {
 				{!currentUser && <li className="login-li navbar-link"><a href="/login">Login</a></li>}
 				{!currentUser && <li className="signup-li navbar-link"><a href="/signup">Sign Up</a></li>}
 				<li className="about-li navbar-link"><a href="/about">About</a></li>
-				<li className="restaurants-li navbar-link"><a href="/restaurants">Restaurants</a></li>
+				<li className="restaurants-li navbar-link"><a href="/restaurants/phoenix">Restaurants</a></li>
 				{currentUser &&
 					<li className="user-li">
 						<div className="user-img" onClick={toggleAccountMenu}>
@@ -109,6 +109,7 @@ export default function Nav() {
 								<li className="logout-li" onClick={handleLogout}>Logout</li>
 							</ul>
 						</div>
+						<div className="account-menu-triangle"></div>
 					</li>}
 			</ul>
 		</div >
