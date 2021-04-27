@@ -2,11 +2,13 @@ import Cookies from 'js-cookie'
 import React, { useRef, useEffect, useContext } from 'react'
 import { Link } from "react-router-dom"
 import { AuthContext } from "./App.jsx"
+import { LocationContext } from "./App.jsx"
 import axios from "axios"
 
 export default function Nav() {
 
 	const { currentUser, setCurrentUser } = useContext(AuthContext)
+	const { defaultLocation } = useContext(LocationContext)
 	const navLinksRef = useRef(null)
 	const menuIconRef = useRef(null)
 	const accMenuRef = useRef(null)
@@ -98,7 +100,7 @@ export default function Nav() {
 				{!currentUser && <li className="login-li navbar-link"><a href="/login">Login</a></li>}
 				{!currentUser && <li className="signup-li navbar-link"><a href="/signup">Sign Up</a></li>}
 				<li className="about-li navbar-link"><a href="/about">About</a></li>
-				<li className="restaurants-li navbar-link"><a href="/restaurants/phoenix">Restaurants</a></li>
+				<li className="restaurants-li navbar-link"><a href={`/restaurants/${defaultLocation}`}>Restaurants</a></li>
 				{currentUser &&
 					<li className="user-li">
 						<div className="user-img" onClick={toggleAccountMenu}>

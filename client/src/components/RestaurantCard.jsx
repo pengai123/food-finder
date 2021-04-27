@@ -13,9 +13,11 @@ export default function RestaurantCard({ restaurant }) {
 
 	return (
 		<div className="restaurant-card">
-			<div className="image">
-				<img src={restaurant.restaurant.featured_image ? restaurant.restaurant.featured_image : "https://t4.ftcdn.net/jpg/00/38/13/73/360_F_38137330_gUbR3ZXBc5J5g4pRkaC8TYZQA62OZhx5.jpg"} alt="" />
-			</div>
+			<a href={restaurant.restaurant.url} target="_blank">
+				<div className="image">
+					<img src={restaurant.restaurant.featured_image ? restaurant.restaurant.featured_image : "https://t4.ftcdn.net/jpg/00/38/13/73/360_F_38137330_gUbR3ZXBc5J5g4pRkaC8TYZQA62OZhx5.jpg"} alt="" />
+				</div>
+			</a>
 			<div className="details">
 				<h2>{restaurant.restaurant.name}</h2>
 				<div className="user_rating">

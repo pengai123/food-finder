@@ -1,7 +1,8 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import RestaurantCard from "./RestaurantCard.jsx"
 import Loader from "./Loader.jsx"
+import { LocationContext } from './App.jsx';
 
 export default function Restaurants({ match }) {
 	const [location, setLocation] = useState("");
@@ -10,13 +11,14 @@ export default function Restaurants({ match }) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [total, setTotal] = useState(0)
 	const [startNumber, setStartNumber] = useState(0)
+	const { defaultLocation } = useContext(LocationContext)
 
 	const getHref = () => {
 		if (location === "" && keyword === "") {
-			return "/restaurants/phoenix"
+			return `/restaurants/${defaultLocation}`
 		}
 		if (location === "" && keyword !== "") {
-			return `/restaurants/phoenix/${keyword}`
+			return `/restaurants/${defaultLocation}/${keyword}`
 		}
 		if (location !== "" && keyword === "") {
 			return `/restaurants/${location}`;
@@ -26,7 +28,7 @@ export default function Restaurants({ match }) {
 		}
 	}
 
-	const search = (loc, kw = "", start = 0) => {
+	const search = (loc = defaultLocation, kw = "", start = 0) => {
 
 		setIsLoading(true);
 		axios.get(`/api/restaurants/${loc}?kw=${kw}&start=${start}`)
@@ -66,11 +68,10 @@ export default function Restaurants({ match }) {
 							value={keyword} onChange={e => setKeyword(e.target.value)} />
 						<i className="fas fa-search keyword-input-icon"></i>
 					</div>
-					{/* <button href="/restaurants/phoenix/pizza">Search</button> */}
 					<a href={getHref()}>Search</a>
 				</div>
 				<div className="search-result">
-					<p className="result-text">{total} results found for <span>{match.params.keyword}</span> restaurants in <span>{match.params.location ? match.params.location : "Phoenix"}</span>:</p>
+					<p className="result-text">{total} results found for <span>{match.params.keyword}</span> restaurants in <span>{match.params.location ? match.params.location : location}</span>:</p>
 					<div className="restaurants-container">
 						{restaurants.map((restaurant, idx) => <RestaurantCard restaurant={restaurant} key={idx} />)}
 					</div>
