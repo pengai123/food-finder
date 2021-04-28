@@ -105,7 +105,8 @@ app.get("/api/restaurants/:loc", (req, res) => {
 					// console.log('result.data:', result.data)
 					let restaurants = result.data.restaurants;
 					let total = result.data.results_found;
-					res.send({ location, total, restaurants });
+					let start = result.data.results_start;
+					res.send({ location, total, start, restaurants });
 				})
 		})
 })

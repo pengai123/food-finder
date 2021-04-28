@@ -37,11 +37,24 @@ export default function Restaurants({ match }) {
 				setRestaurants(result.data.restaurants);
 				setLocation(result.data.location.city_name);
 				setTotal(result.data.total);
-				if (kw) {
-					setKeyword(kw);
-				}
+				setStartNumber(result.data.start);
+				setKeyword(kw);
 				setIsLoading(false);
 			})
+	}
+
+	const nextPage = e => {
+		e.preventDefault();
+		if (startNumber + 20 < total) {
+			search(location, keyword, startNumber + 20)
+		}
+	}
+
+	const prevPage = e => {
+		e.preventDefault();
+		if (startNumber - 20 >= 0) {
+			search(location, keyword, startNumber - 20)
+		}
 	}
 
 	useEffect(() => {
@@ -74,6 +87,11 @@ export default function Restaurants({ match }) {
 					<p className="result-text">{total} results found for <span>{match.params.keyword}</span> restaurants in <span>{match.params.location ? match.params.location : location}</span>:</p>
 					<div className="restaurants-container">
 						{restaurants.map((restaurant, idx) => <RestaurantCard restaurant={restaurant} key={idx} />)}
+					</div>
+					<div className="page-btns">
+						<button className="prev-btn page-btn" onClick={prevPage}>{`< Prev Page`}</button>
+						<span className="page-index">Page {(startNumber / 20) + 1}</span>
+						<button className="next-btn page-btn" onClick={nextPage}>{`Next Page >`}</button>
 					</div>
 				</div>
 			</div>
