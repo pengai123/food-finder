@@ -90,7 +90,7 @@ export default function Nav() {
 
 	return (
 		<div className="navbar">
-			<a href="/" className="navbar-logo link">LOG<span>O</span></a>
+			<a href="/" className="navbar-logo link">FoodFinde<span>r</span></a>
 			<div id="menu-icon" className="menu-icon" onClick={toggleMenu} ref={menuIconRef}>
 				<div className="line-1 menu-icon-line"></div>
 				<div className="line-2 menu-icon-line"></div>

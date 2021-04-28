@@ -89,9 +89,9 @@ export default function Restaurants({ match }) {
 						{restaurants.map((restaurant, idx) => <RestaurantCard restaurant={restaurant} key={idx} />)}
 					</div>
 					<div className="page-btns">
-						<button className="prev-btn page-btn" onClick={prevPage}>{`< Prev Page`}</button>
+						<button className="prev-btn page-btn" onClick={prevPage}>{`< Prev`}</button>
 						<span className="page-index">Page {(startNumber / 20) + 1}</span>
-						<button className="next-btn page-btn" onClick={nextPage}>{`Next Page >`}</button>
+						<button className="next-btn page-btn" onClick={nextPage}>{`Next >`}</button>
 					</div>
 				</div>
 			</div>

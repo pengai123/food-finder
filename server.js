@@ -4,7 +4,6 @@ const bp = require("body-parser")
 const cookieParser = require("cookie-parser")
 const jwt = require("jsonwebtoken")
 const axios = require("axios")
-// const config = require("./config.js")
 const dbHandlers = require("./database/handlers")
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
