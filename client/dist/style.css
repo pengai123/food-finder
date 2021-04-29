@@ -579,17 +579,103 @@
 }
 
 .about-page {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	padding-top: 120px;
+	padding-bottom: 40px;
 	background: url("/bg.jpg");
 	background-size: cover;
 }
-
-.about-content{
+.about-container{
 	width: 80%;
+	margin: auto;
+	display: flex;
+}
+
+.about-me{
+	flex: 1;
+	background: cornflowerblue;
+	padding: 30px;
+}
+
+.about-app{
+	width: 65%;
 	min-height: 500px;
-	border: 1px solid rgba(255, 255, 255, 0.5);
+	background: white;
+	padding: 30px;
+}
+
+.about-me h1,
+.about-app h1{
+	font-size: 25px;
+	margin-bottom: 10px;
+}
+.about-me h2,
+.about-app h2 {
+	margin-top: 20px;
+	font-weight: 600;
+  font-size: 20px;
+}
+
+.about-me p,
+.about-app p {
+	font-size: 14px;
+	margin: 10px 0;
+}
+
+.about-app .tech{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.tech-sec{
+	width: 30%;
+	min-width: 170px;
+	max-width: 220px;
+	margin: 5px 10px;
+}
+.about-me h3{
+	font-weight: 500;
+  font-size: 14px;
+	margin: 5px 0;
+}
+
+.about-me .location i{
+	color: #9a031e;
+	margin-right: 5px;
+}
+.about-me  .social .contact{
+	margin-top: 5px;
+	display: flex;
+	align-items: center;
+}
+
+.about-me  .social .contact i{
+	font-size: 15px;
+	margin-right: 5px;
+	color: #9a031e;
+}
+
+.about-me  .social .contact a{
+	font-size: 14px;
+	color: black;
+	transition: 0.5s;
+}
+
+.about-me  .social .contact a:hover{
+	color: red;
+}
+
+.tech-sec h3{
+	font-weight: 500;
+  font-size: 16px;
+}
+
+.tech-sec ul{
+	list-style: none;
+}
+
+.tech-sec ul li{
+	font-size: 14px;
 }
 
 .restaurants-page{
@@ -625,7 +711,8 @@
 	border: none;
 	outline: none;
 	height: 35px;
-	background-image: linear-gradient(90deg, #c42918, #fe8c00, #c42918);
+	/* background-image: linear-gradient(90deg, #c42918, #fe8c00, #c42918); */
+	background-image: linear-gradient(90deg, #ffbe0b, #fe8c00, #ffbe0b);
 	background-size: 200%;
 	transition: 0.5s;
 }
@@ -799,6 +886,15 @@
 	.restaurants-page{
 		padding: 100px 30px;
 	}
+
+	.about-container{
+		width: 80%;
+		flex-direction: column;
+	}
+
+	.about-container .about-app{
+		width: 100%;
+	}
 }
 
 
@@ -828,7 +924,6 @@
 		width: 40%;
 		height: 100vh;
 		padding-top: 100px;
-		/* background-color: rgb(99, 99, 116); */
 		background-color: rgba(0, 0, 0, 0.9);
 		flex-direction: column;
 		transform: translateX(100%);
