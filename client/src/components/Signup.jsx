@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from "axios"
+import { AuthContext } from "./App.jsx"
 
 export default function Signup({ history }) {
 
@@ -8,6 +9,7 @@ export default function Signup({ history }) {
 	const [password, setPassword] = useState("")
 	const [passwordConfirm, setPasswordConfirm] = useState("")
 	const [formMsg, setFormMsg] = useState("")
+	const { setCurrentUser } = useContext(AuthContext)
 
 
 	const handleSubmit = e => {
@@ -19,8 +21,8 @@ export default function Signup({ history }) {
 				axios.post("/api/accounts", userObj)
 					.then(({ data }) => {
 						console.log("sign up res", data)
-						if (!data.code) {
-							alert("sign up successfully")
+						if (data.status === "success") {
+							setCurrentUser(data.data.username)
 							history.push("/")
 						} else {
 							setFormMsg("Username is already taken")

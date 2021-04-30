@@ -19,7 +19,6 @@ export default function Login({ history }) {
 					if (data.status === "failure") {
 						setFormMsg(data.message)
 					} else {
-						alert("Log in successfully")
 						setCurrentUser(data.data.username)
 						history.push("/")
 					}

@@ -653,6 +653,7 @@
 	font-size: 15px;
 	margin-right: 5px;
 	color: #9a031e;
+	transition: 0.5s;
 }
 
 .about-me  .social .contact a{
@@ -662,7 +663,7 @@
 }
 
 .about-me  .social .contact a:hover{
-	color: red;
+	color: #9a031e;
 }
 
 .tech-sec h3{

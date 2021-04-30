@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken")
 const axios = require("axios")
 const dbHandlers = require("./database/handlers")
 if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config();
+	require('dotenv').config();
 }
 const PORT = process.env.PORT || 3000
 
@@ -32,16 +32,18 @@ app.get("/hello", (req, res) => {
 //create new account
 app.post("/api/accounts", (req, res) => {
 	dbHandlers.newAccount(req.body, (err, result) => {
-		if (err) { res.send(err) }
-		else { res.send(result) }
+		if (err) { return res.send({ status: "failure", error: err }) }
+		let accessToken = jwt.sign({ username: req.body.username, email: req.body.email }, accessTokenSecret)
+		res.cookie("accessToken", accessToken, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 })
+		res.send({ status: "success", data: result })
 	})
 })
 
 //find an account
 app.get("/api/accounts/:username", (req, res) => {
 	dbHandlers.findAccount({ username: req.params.username }, (err, result) => {
-		if (err) { res.send(err) }
-		else { res.send(result) }
+		if (err) { return res.send(err) }
+		res.send(result)
 	})
 })
 
