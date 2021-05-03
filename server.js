@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const bp = require("body-parser")
 const cookieParser = require("cookie-parser")
+const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const axios = require("axios")
 const dbHandlers = require("./database/handlers")
@@ -9,6 +10,7 @@ if (process.env.NODE_ENV === 'development') {
 	require('dotenv').config();
 }
 const PORT = process.env.PORT || 3000
+const saltRounds = 10
 
 app.use(cookieParser())
 app.use(bp.json())
@@ -30,8 +32,11 @@ app.get("/hello", (req, res) => {
 })
 
 //create new account
-app.post("/api/accounts", (req, res) => {
-	dbHandlers.newAccount(req.body, (err, result) => {
+app.post("/api/accounts", async (req, res) => {
+	// console.log('plain text password:', req.body.password)
+	const password = await bcrypt.hash(req.body.password, saltRounds)
+	// console.log('hashed password:', password)
+	dbHandlers.newAccount({ ...req.body, password }, (err, result) => {
 		if (err) { return res.send({ status: "failure", error: err }) }
 		let accessToken = jwt.sign({ username: req.body.username, email: req.body.email }, accessTokenSecret)
 		res.cookie("accessToken", accessToken, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 })
@@ -49,12 +54,13 @@ app.get("/api/accounts/:username", (req, res) => {
 
 //handle log in
 app.post("/api/login", (req, res) => {
-	dbHandlers.findAccount({ username: req.body.username }, (err, result) => {
+	dbHandlers.findAccount({ username: req.body.username }, async (err, result) => {
 		if (err) { return res.send(err) }
 		if (result === null) {
 			res.send({ status: "failure", message: "Username does not exist" })
 		} else {
-			if (result.password === req.body.password) {
+			const match = await bcrypt.compare(req.body.password, result.password)
+			if (match) {
 				//generate an access token
 				let accessToken = jwt.sign({ username: result.username, email: result.email }, accessTokenSecret);
 				//create a token cookie that expires atfer 3 days

@@ -581,7 +581,7 @@
 .about-page {
 	padding-top: 120px;
 	padding-bottom: 40px;
-	background: url("/bg.jpg");
+	background: url(/bg.jpg);
 	background-size: cover;
 }
 .about-container{
