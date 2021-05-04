@@ -16,7 +16,7 @@ export default function About() {
 				<div className="about-app">
 					<h1>About App</h1>
 					<p>This application is a full stack project for self practice purpose. The frontend is built with react and vanilla CSS for self practice, all the components are responsive and display well on devices of all sizes. The backend is built with Node, Express and MongoDB Atlas as database. It uses JSON web token and cookie for authentication so you can actually sign up, log in and log out. Passwords are encrypted with bcrypt before being stored into database to ensure account security.</p>
-					<p>Please feel free to play with this application!</p>
+					<p>Please feel free to play with this application! Thank You!</p>
 					<h2>Technologies Used</h2>
 					<div className="tech">
 						<div className="frontend tech-sec">
